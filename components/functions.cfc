@@ -1,26 +1,3 @@
-<cffunction name ="depth" access="public" returnType="string" output="true">
-    <cfargument  name="locationIds" type="string" required="yes">
-    <cfquery name="myQuerytest" datasource="cruddb">
-        SELECT s1.locationId, s1.locationName, s1.parentLocationId
-        FROM task.tbl_location AS s1 LEFT OUTER JOIN task.tbl_location AS s2 ON (s1.parentLocationId =
-        s2.locationId)
-        ORDER BY s2.locationName, s1.locationName
-    </cfquery>
-    
-    <!--- <p> sets which row number each locationid</p> --->
-        <cfset RowFromID=StructNew()>
-        <cfloop query="myQuerytest">
-            <cfset RowFromID[locationId]=CurrentRow>
-        </cfloop>
-
-        <cfif StructKeyExists(RowFromID, arguments.locationIds)>
-            <cfset RowID=RowFromID[arguments.locationIds]>
-            <cfoutput>
-                Depth :  #RowID#<br/>
-            </cfoutput>
-        </cfif>
-        
-</cffunction>
 
 <cffunction name ="depthByList" access="public" returnType="string" output="true">
     <cfargument  name="locationIds" type="string" required="yes">
@@ -143,6 +120,41 @@
         <h3>#myList#</h3>
     </cfoutput>
 
+</cffunction>
+
+<cffunction name ="depth" access="public" returnType="string" output="true">
+    <cfargument  name="defaultId" type="string" required="yes">
+    <cfargument  name="defaultTitle" type="string" required="yes">
+    <cfargument  name="locationId" type="string" required="yes">
+    <cfargument  name="defaultValue" type="string" required="no">
+
+
+    <cfquery name="local.findLocationByCategory" returnType="query" datasource="cruddb">
+        select locationid, locationName
+        from task.tbl_location
+        where parentLocationId = <cfqueryparam value="#arguments.defaultId#" cfsqltype="cf_sql_varchar" />
+    </cfquery>
+   
+    <cfif findLocationByCategory.recordcount>
+        
+        <cfset local.showValue="0">
+        <cfset depthValue = 0>
+        <cfloop query="local.findLocationByCategory">
+
+            <cfset local.showValues = depthValue+1>
+            <cfif local.findLocationByCategory.locationId eq arguments.locationId>
+                <cfdump var = #local.showValues#>
+            </cfif>
+            <cfset TreeModal(newId=findLocationByCategory.locationId,
+            newTitle=findLocationByCategory.locationName,defaultValue = local.showValue+1) />
+
+        </cfloop>
+        <cfoutput>
+            depth : #local.showValues#
+        </cfoutput>
+    </cfif>
+
+        
 </cffunction>
 
 

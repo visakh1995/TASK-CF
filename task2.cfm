@@ -1,7 +1,11 @@
 <h3>Task2</h3>
 <cfset newInstance = createObject("component","components.functions")> 
-<cfset local.locationids = 5>
-<cfset res = newInstance.depth(local.locationids)>
+
+<cfinvoke component="components.functions" method="depth"> 
+    <cfinvokeargument name="defaultId" value="1">
+    <cfinvokeargument name="defaultTitle" value="Kerala">
+    <cfinvokeargument name="locationId" value="5">
+</cfinvoke>
 
  
 
