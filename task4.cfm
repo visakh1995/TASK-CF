@@ -2,4 +2,3 @@
 <cfset newInstance = createObject("component","components.functions")> 
 <cfset local.locationids = 5>
 <cfset res = newInstance.depthbyList(local.locationids)>
-<!--- <cfdump var="#res#"> --->
