@@ -185,13 +185,13 @@
 
             <!--- Loop over children. --->
         <cfloop query="LOCAL.Children">
-                #LOCAL.Children.locationId#, 
+
+                #LOCAL.Children.locationId# &nbsp, 
                 <cfset depthbyChildren(
                             locationIds = LOCAL.Children.locationId
                 ) />
         </cfloop>
     </cfif>
-
 </cffunction>
 
 <cffunction name ="depthByParents" access="public" returnType="string" output="true">

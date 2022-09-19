@@ -1,4 +1,4 @@
-<h3>Task - one</h3>
+<h3>Task 1 - Display locations</h3>
 <cfset newInstance = createObject("component","components.functions")> 
 <ul class="new">                     
     <cfinvoke component="components.functions" 

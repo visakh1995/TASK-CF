@@ -1,6 +1,7 @@
-<h3>Task 3 - Alphabetical order</h3>
+<h1>Task 3 - Alphabetical order</h1>
 <cfset newInstance = createObject("component","components.functions")>
-<cfset res = newInstance.TreeSort()>
+<cfset res = newInstance.Alphabets()>
+
 
 
 
